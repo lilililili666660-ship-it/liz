@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>黎莎莎 💗 赵霖潇</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "微软雅黑", sans-serif;
+    background: linear-gradient(to bottom right, #ffd6e7, #fff0f6);
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* 🌸 顶部标题萌动 */
+h1 {
+    color: #ff5c8a;
+    margin-top: 25px;
+    animation: bounce 2s infinite;
+    text-shadow: 0 0 10px rgba(255,105,180,0.3);
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* 🔒 锁屏 */
+#lockScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* 输入框 */
+input {
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* 💗 按钮Q弹 */
+button {
+    margin-top: 10px;
+    background: #ff6fa5;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:active {
+    transform: scale(0.9);
+}
+
+/* 容器 */
+.container {
+    padding: 10px;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* 🧸 卡片悬浮 */
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    margin: 12px auto;
+    width: 92%;
+    box-shadow: 0 8px 20px rgba(255, 150, 180, 0.25);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* 💗 爱心雨 */
+.heart {
+    position: fixed;
+    top: -10px;
+    color: pink;
+    font-size: 18px;
+    animation: fall linear;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+
+/* 🐶 小狗雨（已替换） */
+.dog {
+    position: fixed;
+    top: -20px;
+    font-size: 22px;
+    animation: fall linear;
+    pointer-events: none;
+}
+
+/* 按钮 */
+.qbtn {
+    display: block;
+    margin: 8px auto;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: none;
+    background: #ff8fb1;
+    color: white;
+}
+
+/* 游戏按钮 */
+.gameBtn {
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* 🌸 小提示 */
+.tip {
+    font-size: 12px;
+    color: #ff6fa5;
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔒 锁屏 -->
+<div id="lockScreen">
+    <h2>💗 请输入黎莎莎生日解锁</h2>
+    <p class="tip">小提示：是属于赵霖潇的秘密哦</p>
+    <input type="password" id="pwd" placeholder="请输入生日">
+    <button onclick="unlock()">进入</button>
+</div>
+
+<!-- 主页面 -->
+<div id="main" style="display:none">
+
+<h1>💗 黎莎莎写给赵霖潇 💗</h1>
+<p class="tip">这是一个会偷偷掉爱心的小世界</p>
+
+<div class="container">
+
+    <div class="card">
+        <h3>💞 在一起时间</h3>
+        <p id="days"></p>
+    </div>
+
+    <div class="card">
+        <h3>💌 心里话</h3>
+        <p id="loveText"></p>
+    </div>
+
+    <div class="card">
+        <h3>🎮 爱心小游戏</h3>
+        <p>点一下就会被喜欢 💗</p>
+        <button class="gameBtn" onclick="addHeart()">💗</button>
+        <p>爱心数量：<span id="score">0</span></p>
+    </div>
+
+    <div class="card">
+        <h3>💬 小测试</h3>
+        <p>这个网站是谁做给谁的？</p>
+
+        <button class="qbtn" onclick="answer(true)">黎莎莎 → 赵霖潇</button>
+        <button class="qbtn" onclick="answer(false)">赵霖潇 → 黎莎莎</button>
+
+        <p id="result"></p>
+    </div>
+
+    <div class="card">
+        <h3>📸 回忆</h3>
+        <p>照片交给你来放哦 💗</p>
+    </div>
+
+</div>
+</div>
+
+<script>
+
+/* 🔒 解锁 */
+function unlock(){
+    let val = document.getElementById("pwd").value;
+
+    if(val === "20070606"){
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        alert("小狗每天都在想你 💗");
+    } else {
+        alert("不对哦，再想想 💭");
+    }
+}
+
+/* 💞 时间 */
+let startDate = new Date("2025-03-30");
+let now = new Date();
+let days = Math.floor((now - startDate) / (1000*60*60*24));
+document.getElementById("days").innerText = `已经在一起 ${days} 天 ❤️`;
+
+/* 💌 情话 */
+let texts = [
+"zlx我真的好喜欢你 💗",
+"今天也在偷偷想你",
+"小狗正在想你中...",
+"ww不可以不理我",
+"想一直粘着你"
+];
+
+let i = 0;
+setInterval(() => {
+    document.getElementById("loveText").innerText = texts[i];
+    i = (i + 1) % texts.length;
+}, 3000);
+
+/* 💗 爱心雨 */
+function createHeart(){
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💗";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (2+Math.random()*3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,300);
+
+/* 🐶 小狗雨（已替换） */
+function createDog(){
+    let dog = document.createElement("div");
+    dog.className = "dog";
+    dog.innerText = "🐶";
+    dog.style.left = Math.random()*100 + "vw";
+    dog.style.animationDuration = (3+Math.random()*3)+"s";
+    document.body.appendChild(dog);
+    setTimeout(()=>dog.remove(),6000);
+}
+setInterval(createDog,1200);
+
+/* 💗 点击屏幕冒爱心 */
+document.body.addEventListener("click", function(e){
+    let heart = document.createElement("div");
+    heart.innerText = "💗";
+    heart.style.position = "absolute";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    heart.style.pointerEvents = "none";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),800);
+});
+
+/* 🎮 爱心计数 */
+let score = 0;
+function addHeart(){
+    score++;
+    document.getElementById("score").innerText = score;
+}
+
+/* 💬 问答 */
+function answer(isCorrect){
+    if(isCorrect){
+        document.getElementById("result").innerText =
+        "答对啦 💗 这是黎莎莎写给赵霖潇的小世界";
+    } else {
+        document.getElementById("result").innerText =
+        "错啦 😤 只能选正确答案哦";
+    }
+}
+
+</script>
+
+</body>
+</html>
